@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            /* 过渡动画，只有一次 */
+            /* transition: width 2s; */
+        }
+
+        div:hover {
+            /* width: 400px; */
+            /* animation: changeWidth 2s 3; */
+            animation: changeWidth 2s infinite;
+        }
+
+        @keyframes changeWidth {
+            0% {
+                width: 200px;
+            }
+
+            100% {
+                width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+</body>
+<script>
+
+</script>
+
+</html>

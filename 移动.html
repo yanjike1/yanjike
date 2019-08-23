@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            height: 100px;
+            background-color: red;
+        }
+
+        img {
+            width: 100%;
+            vertical-align: middle;
+        }
+
+        ul {
+            list-style: none;
+            display: flex;
+            width: 800%;
+        }
+
+        .move {
+            transition: transform 400ms linear;
+        }
+
+        li {
+            flex: 1;
+        }
+
+        .cour {
+            max-width: 760px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <div class="cour">
+            <ul class="move">
+                <li><a href="#"><img src="./6.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./5.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./6.jpg" alt=""></a></li>
+                <li><a href="#"><img src="./1.jpg" alt=""></a></li>
+            </ul>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+<script src="./zepto.js"></script>
+<script src="./touch.js"></script>
+<script>
+    //获取lu
+    let ul = document.querySelector('ul')
+    // 定义一个变量，记录当前是第几张图片
+    let currImg = 1;
+    //记录图片宽度
+    let imgWidth = $('.cour').width();
+    //为了保证一开始显示的是真正的第一张，先设置一次lu的位置
+    let targt = currImg * imgWidth * -1;
+    // 修改的是lu的transform属性
+    ul.style.transform = 'translate(' + targt + 'px)';
+    //开始并不需要动画
+    ul.classList.remove('move')
+    // 等待一小会儿,吧类名加回去
+    setTimeout(function () {
+        ul.classList.add('move')
+    }, 10)
+    // 获取ul.注册左滑动事件
+    $('ul').on('swipeLeft', function () {
+        currImg++;
+        // 算出ul的位置，设置个ul即可
+        console.log('左')
+        let targt = currImg * imgWidth * -1
+        //    修改的是ul的transform属性
+        ul.style.transform = 'translate(' + targt + 'px)'
+    })
+    // 注册右事件
+    $('ul').on('swipeRight', function () {
+        currImg--;
+        console.log('右')
+        let targt = currImg * imgWidth * -1
+        ul.style.transform = 'translate(' + targt + 'px)'
+    })
+    // 实现缝滚动
+    ul.addEventListener('transitionend', function () {
+        console.log('结束')
+        // 判断是否划右，划到了假的第6张
+        if (currImg === 0) {
+            currImg = ul.children.length - 2
+            let targt = currImg * imgWidth * -1;
+            ul.style.transform = 'translate(' + targt + 'px)'
+            ul.classList.remove('move')
+            setTimeout(function () {
+                ul.classList.add('move')
+            }, 10)
+        }
+    })
+</script>
+
+</html>
